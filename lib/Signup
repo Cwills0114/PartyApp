@@ -1,0 +1,32 @@
+//Create account address
+String _createAccount() {
+  if (Platform.isAndroid)
+    return 'http://10.0.2.2:3000/createCustomer';
+  else // for iOS simulator
+    return 'http://localhost:3000/createCustomer';
+}
+
+
+//Create account HTTP Post Request
+Future<int> createAccount(String name, int age, String address) async {
+  print("button pressed");
+  final Response response = await post(
+    _createAccount(),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(
+        <String, dynamic>{'name': name, 'age': age, 'address': address}),
+  );
+  print(response.statusCode);
+
+  if (response.statusCode == 201 || response.statusCode == 200) {
+    // If the server did return a 201 CREATED response,
+    // then parse the JSON
+    return response.statusCode;
+  } else {
+    // If the server did not return a 201 CREATED response,
+    // then throw an exception.
+    throw Exception('Failed to create customer');
+  }
+}
