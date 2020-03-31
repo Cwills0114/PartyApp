@@ -130,7 +130,7 @@ class LoginPage extends StatelessWidget {
                                     // Navigator.push(
                                     //   context, MaterialPageRoute(builder: (context) => _makeGetRequest()),
                                     //     );
-                                    loginAccount(emailController.text, passwordController.text);
+                                    loginAccount(emailController.text, passwordController.text, context);
                                     //Log into the account if true
                                   },
                                   child: Center(
@@ -152,15 +152,15 @@ class LoginPage extends StatelessWidget {
 //Login Address
 String _loginAddress() {
   if (Platform.isAndroid)
-    return 'http://10.0.2.2:3000/';
+    return 'http://10.0.2.2:4000/user/login';
   else // for iOS simulator
-    return 'http://localhost:3000/';
+    return 'http://localhost:4000/user/login';
 }
 
 
 
 //Create account HTTP Post Request
-Future<int> loginAccount(String email, String password) async {
+Future<int> loginAccount(String email, String password, BuildContext context) async {
   print("button pressed");
   final Response response = await post(
     _loginAddress(),
@@ -173,16 +173,38 @@ Future<int> loginAccount(String email, String password) async {
   print(response.statusCode);
 
   if (response.statusCode == 201 || response.statusCode == 200) {
-    // If the server did return a 201 CREATED response,
-    // then parse the JSON
+    //Logged in
+
     return response.statusCode;
   } else {
+    var errorResponse = json.decode(response.body);
+    var error = errorResponse['message'];
+    _ackAlert(error, context);
     // If the server did not return a 201 CREATED response,
     // then throw an exception.
     throw Exception('Failed to Login');
   }
 }
 
+Future<void> _ackAlert(String error, BuildContext context) {
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('There seems to be an issue with the Login :('),
+        content: Text(error),
+        actions: <Widget>[
+          FlatButton(
+            child: Text('Ok'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
 
 
 
