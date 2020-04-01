@@ -40,9 +40,11 @@ router.post(
             email,
             password
         } = req.body;
+        
+
         try {
             let user = await User.findOne({
-                email
+              email
             });
             if (user) {
                 return res.status(400).json({
@@ -94,8 +96,10 @@ router.post(
 
 router.post(
     "/login",
+
     [
       check("email", "Please enter a valid email").isEmail(),
+      
       check("password", "Please enter a valid password").isLength({
         min: 6
       })
@@ -105,7 +109,7 @@ router.post(
   
       if (!errors.isEmpty()) {
         return res.status(400).json({
-          errors: errors.array()
+          errors: errors.array(),
         });
       }
   
