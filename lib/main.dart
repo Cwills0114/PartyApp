@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'homePage.dart';
 
 void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -126,12 +127,13 @@ class LoginPage extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(50),
                                   color: Colors.orange[900]),
                               child: GestureDetector(
-                                  onTap: () {
-                                    // Navigator.push(
-                                    //   context, MaterialPageRoute(builder: (context) => _makeGetRequest()),
-                                    //     );
-                                    loginAccount(emailController.text, passwordController.text, context);
-                                    //Log into the account if true
+                                  onTap: () async {
+                                    var loginBool = await loginAccount(emailController.text.trim(), passwordController.text, context);
+                                    if(loginBool  == true){
+                                      Navigator.push(
+                                        context, MaterialPageRoute(builder: (context) => homePage()),
+                                        );
+                                    }
                                   },
                                   child: Center(
                                     child: Text("Login",
@@ -149,7 +151,12 @@ class LoginPage extends StatelessWidget {
   }
 }
 
-//Login Address
+/*
+@Method: _LoginAddress()
+@Description: Stores the IP for the Login API
+*/
+
+
 String _loginAddress() {
   if (Platform.isAndroid)
     return 'http://10.0.2.2:4000/user/login';
@@ -159,9 +166,11 @@ String _loginAddress() {
 
 
 
-//Create account HTTP Post Request
-Future<int> loginAccount(String email, String password, BuildContext context) async {
-  print("button pressed");
+/*
+@Method: loginAccount(String, String, BuildContext)
+@Description: Handles the Login Post Request
+*/
+Future<bool> loginAccount(String email, String password, BuildContext context) async {
   final Response response = await post(
     _loginAddress(),
     headers: <String, String>{
@@ -170,21 +179,34 @@ Future<int> loginAccount(String email, String password, BuildContext context) as
     body: jsonEncode(
         <String, dynamic>{'email': email, 'password': password}),
   );
-  print(response.statusCode);
 
-  if (response.statusCode == 201 || response.statusCode == 200) {
-    //Logged in
+  switch(response.statusCode){
+    case 201:
+    case 200: { 
+      print("Switch: true");
+      return Future.value(true);
+    } 
+    break; 
 
-    return response.statusCode;
-  } else {
-    var errorResponse = json.decode(response.body);
-    var error = errorResponse['message'];
-    _ackAlert(error, context);
-    // If the server did not return a 201 CREATED response,
-    // then throw an exception.
-    throw Exception('Failed to Login');
+    default: {
+      var errorResponse = json.decode(response.body);
+      var error = errorResponse['message'];
+      print(error);
+      if(error != null){
+        _ackAlert(error, context);  
+      }else{
+        _ackAlert("Error has Occured, Please check the username and password and try again.", context);
+      }
+      return Future.value(false);
+    }
   }
+
 }
+
+/*
+@Method: _ackAlert(String, BuildContext)
+@Description: Display a Acknowledgement box based on a string input.
+*/
 
 Future<void> _ackAlert(String error, BuildContext context) {
   return showDialog<void>(
