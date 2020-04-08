@@ -1,6 +1,8 @@
 
 
 import 'package:flutter/material.dart';
+import 'sideBar.dart';
+import 'Events/events.dart';
 
 
 final AssetImage backgroundImage = AssetImage('images/Background.png');
@@ -27,17 +29,14 @@ class _homePageLayoutState extends State<homePageLayout> {
       backgroundColor: Colors.black,
       body: Stack(
         children: <Widget> [
-         // menu(context),
+         //sideBar(),
           homePage(context),
-          SizedBox(height: 100,)  
+          display_Event(context), 
         ]
       ),
     );
   }
 
-Widget menu(BuildContext context){
-  //Side Drawer.
-}
 
 Widget homePage(BuildContext context){
   return Material(
@@ -73,3 +72,4 @@ Widget homePage(BuildContext context){
   );
 }
 }
+
