@@ -18,14 +18,11 @@ Widget homePage(BuildContext context) {
               fit: BoxFit.fill,
             ),
           ),
-          // padding: const EdgeInsets.only(left: 16, right: 16, top: 25),
           child: Container(
               child: Stack(
-                  //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //mainAxisSize: MainAxisSize.max,
                   children: [
                 Positioned(
-                  top: screenHeight /12,
+                  top: screenHeight / 12,
                   left: 20,
                   child: InkWell(
                     child: Icon(Icons.menu, color: Colors.black),
@@ -40,19 +37,20 @@ Widget homePage(BuildContext context) {
                   top: 25,
                   left: 100,
                   child: Container(
-                    child: Column(children: [
-                      Text("27",
-                          style: TextStyle(
+                    child: Column(
+                      children: [
+                        Text("0",
+                        style: TextStyle(
                               color: Colors.black,
                               fontSize: 50,
                               fontFamily: 'OpenSans',
                               fontWeight: FontWeight.bold)),
-                      Text("Events",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
-                              fontFamily: 'OpenSans',
-                              height: 0.3))
+                        Text("Events",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 20,
+                                fontFamily: 'OpenSans',
+                                height: 0.3))
                     ]),
                   ),
                 ),
