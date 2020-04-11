@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
   Description: Build the Card view for HomePageLayout
 */
 
-// TO DO: Learn data management using StreamBuilder? && prociders??
+// TODO: Learn data management using StreamBuilder? && prociders??
 // https://api.flutter.dev/flutter/widgets/StreamBuilder-class.html
 // https://pub.dev/packages/provider
 
@@ -74,8 +74,10 @@ Widget displayCard(BuildContext context, int index, List items) {
   Size size = MediaQuery.of(context).size;
   screenHeight = size.height;
   screenWidth = size.width;
+  ScrollController _scrollController = ScrollController(initialScrollOffset: 10); // TODO: Scroll Inital position needs fixing
 
   return ListView.separated(
+      controller: _scrollController,
       addAutomaticKeepAlives: false,
       itemCount: items.length,
       itemBuilder: (context, index) {
@@ -108,7 +110,7 @@ Widget displayCard(BuildContext context, int index, List items) {
                     right: 30,
                     child: Icon(Icons.account_circle, size: 50)),
                 Positioned(
-                    //Divider not showing
+                    //TODO: Divider not showing
                     top: 70,
                     child: new SizedBox(
                       height: 10.0,
@@ -136,7 +138,7 @@ Widget displayCard(BuildContext context, int index, List items) {
                       ),
                       child: RaisedButton(
                         onPressed: () {
-                          // TO DO: Button Action for Joining event
+                          // TODO: Button Action for Joining event
                         },
                         child: Text("Join"),
                       ),

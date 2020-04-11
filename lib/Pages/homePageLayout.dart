@@ -10,7 +10,7 @@ class homePageLayout extends StatefulWidget {
   _homePageLayoutState createState() => _homePageLayoutState();
 }
 
-/*TO DO - When creating Calls to service
+/*TODO - When creating Calls to service
     Create a state that holds an Async funciton
     Set Loading state to true & display loading icon
     Get the infomation
