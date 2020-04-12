@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:login/Events/eventScrollPhysics.dart';
 
 /*
   Method: display_Event
@@ -74,9 +75,11 @@ Widget displayCard(BuildContext context, int index, List items) {
   Size size = MediaQuery.of(context).size;
   screenHeight = size.height;
   screenWidth = size.width;
-  ScrollController _scrollController = ScrollController(initialScrollOffset: 10); // TODO: Scroll Inital position needs fixing
+  ScrollController _scrollController = ScrollController(); // TODO: Scroll Inital position needs fixing
 
   return ListView.separated(
+
+      physics: eventScrollPhysics(),
       controller: _scrollController,
       addAutomaticKeepAlives: false,
       itemCount: items.length,
@@ -99,7 +102,7 @@ Widget displayCard(BuildContext context, int index, List items) {
                       Text("Faraday complex",
                           style: TextStyle(
                               fontFamily: 'OpenSans',
-                              fontWeight: FontWeight.w400,
+                              fontWeight: FontWeight.w600,
                               fontSize: 20)),
                       Text("17/01/00"),
                     ],
