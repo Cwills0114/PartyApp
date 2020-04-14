@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:login/Pages/signupPage.dart';
+import 'package:login/API/SignupAPI.dart';
+import 'package:login/API/loginAPI.dart';
 import 'package:passwordfield/passwordfield.dart';
-import 'package:login/Pages/homePageLayout.dart';
-import 'package:login/Theme/theme.dart';
 
-class LoginPage extends StatelessWidget {
+import 'homePageLayout.dart';
+
+class signup extends StatelessWidget {
+
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-
+  final userController = TextEditingController();
+  
   Widget build(BuildContext context) {
     final ThemeData _themeData = Theme.of(context);
     return Scaffold(
@@ -15,14 +18,14 @@ class LoginPage extends StatelessWidget {
         width: double.infinity,
         decoration: BoxDecoration(color: Colors.white),
         child: SingleChildScrollView(
-                  child: Column(
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               SizedBox(
-                height: 140,
+                height: 100,
               ),
               Container(
-                  height: 440,
+                  height: 520,
                   width: 330,
                   decoration: BoxDecoration(
                     image: DecorationImage(
@@ -38,12 +41,12 @@ class LoginPage extends StatelessWidget {
                     ],
                   ),
                   child: Padding(
-                      padding: EdgeInsets.all(30),
+                      padding: EdgeInsets.all(20),
                       child: Column(children: <Widget>[
                         SizedBox(
                           height: 20,
                         ),
-                        Text("Welcome",
+                        Text("Signup",
                             style: _themeData.textTheme
                                 .headline), //TODO: Change / Does not use theme file
                         SizedBox(height: 20),
@@ -69,9 +72,9 @@ class LoginPage extends StatelessWidget {
                                           bottom: BorderSide(
                                               color: Colors.grey[200]))),
                                   child: TextField(
-                                    controller: emailController,
+                                    controller: userController,
                                     decoration: InputDecoration(
-                                        hintText: "Username or Email",
+                                        hintText: "Username",
                                         hintStyle:
                                             TextStyle(color: Colors.grey),
                                         border: InputBorder.none),
@@ -79,7 +82,22 @@ class LoginPage extends StatelessWidget {
                                 ),
                                 Container(
                                   padding: EdgeInsets.all(10),
-                                  child: PasswordField(
+                                  decoration: BoxDecoration(
+                                      border: Border(
+                                          bottom: BorderSide(
+                                              color: Colors.grey[200]))),
+                                  child: TextField(
+                                    controller: emailController,
+                                    decoration: InputDecoration(
+                                        hintText: "Email",
+                                        hintStyle:
+                                            TextStyle(color: Colors.grey),
+                                        border: InputBorder.none),
+                                  ),
+                                ),
+                                Container(
+                                  padding: EdgeInsets.all(10),
+                                  child:  PasswordField(
                                     controller: passwordController,
                                     color: Colors.grey,
                                     hasFloatingPlaceholder: true,
@@ -89,9 +107,8 @@ class LoginPage extends StatelessWidget {
                               ],
                             )),
                         SizedBox(
-                          height: 25,
+                          height: 40,
                         ),
-
                         Container(
                             height: 50,
                             margin: EdgeInsets.symmetric(horizontal: 50),
@@ -102,25 +119,19 @@ class LoginPage extends StatelessWidget {
                                       new BorderRadius.circular(18.0)),
                               child: RaisedButton(
                                 child: Center(
-                                  child: Text("Login",
+                                  child: Text("Create Account",
                                       style: TextStyle(
                                           color: Colors.grey,
                                           fontFamily: "OpenSans",
                                           fontWeight: FontWeight.w600)),
                                 ),
-                                onPressed: () {
-                                  // var loginBool = await loginAccount(emailController.text.trim(), passwordController.text, context);
-                                  // if(loginBool  == true){
-                                  //   Navigator.push(
-                                  //     context, MaterialPageRoute(builder: (context) => homePageLayout()),
-                                  //     );
-                                  // }
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            homePageLayout()),
-                                  );
+                                onPressed: () async {
+                                  var createAccountBool = await createAccount(userController.text, emailController.text.trim(), passwordController.text, context);
+                                  if(createAccountBool  == true){
+                                    Navigator.push(
+                                      context, MaterialPageRoute(builder: (context) => homePageLayout()),
+                                      );
+                                  }
                                 },
                               ),
                             )),
@@ -147,18 +158,16 @@ class LoginPage extends StatelessWidget {
                           onTap: () {
                             print("Register"); // Link to Register page
                             Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          signup()),
-                                );
-                          },
-                          child: Text(
-                            "Create An Account",
-                            style: TextStyle(color: Colors.grey),
-                          ),
+                              context,
+                              MaterialPageRoute(builder: (context) => signup()),
+                          );
+                        },
+                        child: Text(
+                          "Already have an account? Sign in",
+                          style: TextStyle(color: Colors.grey),
                         ),
-                      ]))),
+                      ),
+                    ]))),
             ],
           ),
         ),
