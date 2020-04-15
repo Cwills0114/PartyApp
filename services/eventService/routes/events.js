@@ -10,11 +10,11 @@ const Event = require("../model/event_model");
 router.post(
     "/createEvent",
     [
-        check("name", "Name Cannot be Empty").notEmpty({ ignore_whitespace: true }),
+        check("title", "Name Cannot be Empty").notEmpty({ ignore_whitespace: true }),
         check("description", "Description Cannot be Empty").notEmpty({ ignore_whitespace: true }),
         check("address", "Address Cannot be Empty").notEmpty({ ignore_whitespace: true }),
-        check("startTime", "Start Time Cannot be Empty").notEmpty({ ignore_whitespace: true }),
-        check("Date", "Please Enter a valid Date").notEmpty({ ignore_whitespace: true }).toDate(),
+       // check("startTime", "Start Time Cannot be Empty").notEmpty({ ignore_whitespace: true }),
+        check("date", "Please Enter a valid Date").notEmpty({ ignore_whitespace: true }),
         check("userToken", "Invalid User").notEmpty({ ignore_whitespace: true }),
         check("email", "Please enter a valid email").isEmail()
         
@@ -29,10 +29,10 @@ router.post(
         }
         // Create a Array with new event info
         var newEvent = {
-            name: req.body.name,
+            title: req.body.title,
             description: req.body.description,
             address: req.body.address,
-            startTime: req.body.startTime,
+           // startTime: req.body.startTime,
             Date: req.body.Date,
             createdAt: req.body.createdAt,
 
