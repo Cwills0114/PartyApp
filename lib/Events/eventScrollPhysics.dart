@@ -15,12 +15,12 @@ class eventScrollPhysics extends ScrollPhysics {
     double difference;
     print(pos);
     if (pos % 140 != 0) {
-          difference = ((pos - 28) % 140);
+          difference = (pos % 141);
           if (difference >= 70) {
-            double target = (pos - difference);
+            double target = (pos + difference);
             return target;
           } else {
-            double target = (pos + difference) ;
+            double target = (pos - difference) ;
             return target;
           }
         }else{

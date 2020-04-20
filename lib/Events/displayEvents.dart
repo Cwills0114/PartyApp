@@ -94,95 +94,100 @@ Widget displayCard(BuildContext context, int index, AsyncSnapshot snapshot) {
   ScrollController _scrollController = ScrollController(); // TODO: Scroll Inital position needs fixing
   List<eventModel> events = snapshot.data;
 
-  return ListView.separated(
-      physics: eventScrollPhysics(),
-      controller: _scrollController,
-      addAutomaticKeepAlives: false,
-      itemCount: events?.length ?? 0,
-      itemBuilder: (context, index) {
-        eventModel _event = events[index];
+  return Container(
+      child: MediaQuery.removePadding(removeTop: true, context: context, 
+      child: ListView.separated(
+        physics: eventScrollPhysics(),
+        controller: _scrollController,
+        addAutomaticKeepAlives: true,
+        itemCount: events?.length ?? 0,
+        itemBuilder: (context, index) {
+          eventModel _event = events[index];
+          print(events.length);
 
 
-        return Container(
-          height: 140,
-          width: screenWidth - 5,
-          child: Card(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(25.0)),
-            elevation: 6,
-            child: Stack(
-              children: <Widget>[
-                Positioned(
-                  top: 15,
-                  left: 30,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(_event.title,
-                          style: TextStyle(
-                              fontFamily: 'OpenSans',
-                              fontWeight: FontWeight.w600,
-                              fontSize: 20)),
-                      Text(_event.date),
-                    ],
-                  ),
-                ),
-                Positioned(
+          return Container(
+            height: 140,
+            width: screenWidth - 5,
+            child: Card(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(25.0)),
+              elevation: 6,
+              child: Stack(
+                children: <Widget>[
+                  Positioned(
                     top: 15,
-                    right: 30,
-                    child: Icon(Icons.account_circle, size: 50)),
-                Positioned(
-                    //TODO: Divider not showing
-                    top: 70,
-                    child: new SizedBox(
-                      height: 10.0,
-                      child: new Center(
-                        child: new Container(
-                          margin: new EdgeInsetsDirectional.only(
-                              start: 1.0, end: 1.0),
-                          height: 5.0,
-                          color: Colors.red,
+                    left: 30,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(_event.title,
+                            style: TextStyle(
+                                fontFamily: 'OpenSans',
+                                fontWeight: FontWeight.w600,
+                                fontSize: 20)),
+                        Text(_event.date),
+                      ],
+                    ),
+                  ),
+                  Positioned(
+                      top: 15,
+                      right: 30,
+                      child: Icon(Icons.account_circle, size: 50)),
+                  Positioned(
+                      //TODO: Divider not showing
+                      top: 70,
+                      child: new SizedBox(
+                        height: 10.0,
+                        child: new Center(
+                          child: new Container(
+                            margin: new EdgeInsetsDirectional.only(
+                                start: 1.0, end: 1.0),
+                            height: 5.0,
+                            color: Colors.red,
+                          ),
+                        ),
+                      )),
+                  Positioned(top: 85, left: 30, child: Text(_event.description)),
+                  Positioned(
+                    bottom: 30,
+                    right: 3,
+                    child: Column(children: <Widget>[
+                      ButtonTheme(
+                        minWidth: 10.0,
+                        height: 20.0,
+                        buttonColor: Color.fromRGBO(250, 205, 96, 75),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(18.0),
+                        ),
+                        child: RaisedButton(
+                          onPressed: () {
+                            // TODO: Button Action for Joining event
+                          },
+                          child: Text("Join"),
                         ),
                       ),
-                    )),
-                Positioned(top: 85, left: 30, child: Text(_event.description)),
-                Positioned(
-                  bottom: 30,
-                  right: 3,
-                  child: Column(children: <Widget>[
-                    ButtonTheme(
-                      minWidth: 10.0,
-                      height: 20.0,
-                      buttonColor: Color.fromRGBO(250, 205, 96, 75),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: new BorderRadius.circular(18.0),
-                      ),
-                      child: RaisedButton(
-                        onPressed: () {
-                          // TODO: Button Action for Joining event
-                        },
-                        child: Text("Join"),
-                      ),
-                    ),
-                    Text("10 People are going",
-                        style: TextStyle(height: 0.1, fontSize: 12)),
-                  ]),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-      //Potenital solution for ADS
-      separatorBuilder: (context, index) {
-        if (index > 5 && index % 5 == 0) {
-          return Center(
-            child: Card(
-              color: Colors.red,
-              child: Text("Advetisement"),
+                      Text("10 People are going",
+                          style: TextStyle(height: 0.1, fontSize: 12)),
+                    ]),
+                  ),
+                ],
+              ),
             ),
           );
-        }
-        return SizedBox();
-      });
+        },
+        //Potenital solution for ADS
+        separatorBuilder: (context, index) {
+          if (index > 5 && index % 5 == 0) {
+            return Center(
+              child: Card(
+                color: Colors.red,
+                child: Text("Advetisement"),
+              ),
+            );
+          }
+          return SizedBox();
+        }),
+    ),
+  );
 }
