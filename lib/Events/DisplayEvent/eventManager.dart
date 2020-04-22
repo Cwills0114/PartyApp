@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:login/API/eventAPI.dart';
+import 'package:login/API/getEventAPI.dart';
 
-import 'event_model.dart';
+import '../event_model.dart';
 
 
 class eventManager {

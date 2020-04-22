@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:login/Events/eventManager.dart';
+import 'package:login/Events/DisplayEvent/eventManager.dart';
 import 'package:login/Events/eventScrollPhysics.dart';
 import 'package:login/Events/event_model.dart';
 
@@ -17,7 +17,7 @@ Widget displayEvent(BuildContext context) {
   Size size = MediaQuery.of(context).size;
   screenHeight = size.height;
   screenWidth = size.width;
-  eventManager manager = eventManager();
+//  eventManager manager = eventManager();
 
   List locations = [
     "Bristol",
@@ -54,30 +54,31 @@ Widget displayEvent(BuildContext context) {
                             fontSize: 35,
                             fontFamily: 'OpenSans',
                             fontWeight: FontWeight.w600,
-                            height: 1)),
+                            height: 2)),
                     Expanded(
-                      child: StreamBuilder(
-                        stream: manager.eventListView,
-                        builder: (BuildContext context,
-                            AsyncSnapshot<List<eventModel>> snapshot) {
-                              print(("Error: " +
-                                  (snapshot.connectionState).toString()));
-                          switch (snapshot.connectionState) {
-                            case ConnectionState.none:
-                            case ConnectionState.waiting:
-                            case ConnectionState.active:
-                              return Center(child: CircularProgressIndicator());
-                              break;
-                            case ConnectionState.done:
-                              return displayCard(context, index, snapshot);
-                              break;
-                            default:
-                              return (Text("Error" +
-                                  (snapshot.connectionState).toString()));
-                              break;
-                          }
-                        },
-                      ),
+                      child: Container()
+                      //  StreamBuilder(
+                      //   stream: manager.eventListView,
+                      //   builder: (BuildContext context,
+                      //       AsyncSnapshot<List<eventModel>> snapshot) {
+                      //         print(("Error: " +
+                      //             (snapshot.connectionState).toString()));
+                      //     switch (snapshot.connectionState) {
+                      //       case ConnectionState.none:
+                      //       case ConnectionState.waiting:
+                      //       case ConnectionState.active:
+                      //         return Center(child: CircularProgressIndicator());
+                      //         break;
+                      //       case ConnectionState.done:
+                      //         return displayCard(context, index, snapshot);
+                      //         break;
+                      //       default:
+                      //         return (Text("Error" +
+                      //             (snapshot.connectionState).toString()));
+                      //         break;
+                      //     }
+                      //   },
+                      // ),
                     ),
                   ],
                 ));

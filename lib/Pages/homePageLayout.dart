@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:login/Events/createEvent/createEventButton.dart';
 import '../sideBar.dart';
-import '../Events/displayEvents.dart';
+import '../Events/DisplayEvent/displayEvents.dart';
 import 'homePage.dart';
 
 final AssetImage backgroundImage = AssetImage('images/Background.png');
@@ -35,7 +36,8 @@ class _homePageLayoutState extends State<homePageLayout> {
       body: Stack(children: <Widget>[
         //sideBar(),
         homePage(context),
-        displayEvent(context)
+        displayEvent(context),
+        createEventButton(context)
       ]),
     );
   }
