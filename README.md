@@ -4,6 +4,7 @@ A Flutter project by Charlie Wills.
 Using Node.js for microservices 
 
 A simple App to Post and join Events.
+**Not for distribution just a project for me to work on**
 
 ## Sign in
 <img src="/images/ReadmeImages/Login.png" width="216">
