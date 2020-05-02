@@ -6,13 +6,13 @@ Using Node.js for microservices
 A simple App to Post and join Events.
 
 ## Sign in
-<img src="/images/ReadmeImages/Login.png" width="108">
+<img src="/images/ReadmeImages/Login.png" width="216">
 
 ## Home Page
-![Home Page](/images/ReadmeImages/HomePage.png)
+<img src="/images/ReadmeImages/HomePage.png" width="216">
 
 ## Add Event
-![Add Event](/images/ReadmeImages/addEvent.png)
+<img src="/images/ReadmeImages/addEvent.png" width="216">
 
 
 
