@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:login/API/SignupAPI.dart';
-import 'package:login/API/loginAPI.dart';
+// import 'package:login/API/loginAPI.dart';
 import 'package:passwordfield/passwordfield.dart';
 
 import 'homePageLayout.dart';
 
-class signup extends StatelessWidget {
-
+class Signup extends StatelessWidget {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final userController = TextEditingController();
-  
+
   Widget build(BuildContext context) {
     final ThemeData _themeData = Theme.of(context);
     return Scaffold(
@@ -46,9 +45,7 @@ class signup extends StatelessWidget {
                         SizedBox(
                           height: 20,
                         ),
-                        Text("Signup",
-                            style: _themeData.textTheme
-                                .headline), //TODO: Change / Does not use theme file
+                        Text("Signup", style: _themeData.textTheme.headline5),
                         SizedBox(height: 20),
                         Container(
                             width: 260,
@@ -97,12 +94,13 @@ class signup extends StatelessWidget {
                                 ),
                                 Container(
                                   padding: EdgeInsets.all(10),
-                                  child:  PasswordField(
+                                  child: PasswordField(
                                     controller: passwordController,
                                     color: Colors.grey,
                                     hasFloatingPlaceholder: true,
-                                    errorMessage: 'must contain special character either . * @ # \$',
-                                    ),
+                                    errorMessage:
+                                        'must contain special character either . * @ # \$',
+                                  ),
                                 ),
                               ],
                             )),
@@ -126,11 +124,18 @@ class signup extends StatelessWidget {
                                           fontWeight: FontWeight.w600)),
                                 ),
                                 onPressed: () async {
-                                  var createAccountBool = await createAccount(userController.text, emailController.text.trim(), passwordController.text, context);
-                                  if(createAccountBool  == true){
+                                  var createAccountBool = await createAccount(
+                                      userController.text,
+                                      emailController.text.trim(),
+                                      passwordController.text,
+                                      context);
+                                  if (createAccountBool == true) {
                                     Navigator.push(
-                                      context, MaterialPageRoute(builder: (context) => homePageLayout()),
-                                      );
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              HomePageLayout()),
+                                    );
                                   }
                                 },
                               ),
@@ -159,15 +164,16 @@ class signup extends StatelessWidget {
                             print("Register"); // Link to Register page
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => signup()),
-                          );
-                        },
-                        child: Text(
-                          "Already have an account? Sign in",
-                          style: TextStyle(color: Colors.grey),
+                              MaterialPageRoute(builder: (context) => Signup()),
+                            );
+                          },
+                          child: Text(
+                            "Already have an account? Sign in",
+                            style: TextStyle(color: Colors.grey),
+                            // TODO Add link to login page
+                          ),
                         ),
-                      ),
-                    ]))),
+                      ]))),
             ],
           ),
         ),

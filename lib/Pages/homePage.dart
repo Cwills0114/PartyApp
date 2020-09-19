@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:login/Events/DisplayEvent/eventManager.dart';
+// import 'package:login/Events/DisplayEvent/eventManager.dart';
 
 final AssetImage backgroundImage = AssetImage('images/Background.png');
 double screenWidth, screenHeight;
@@ -39,11 +39,11 @@ Widget homePage(BuildContext context) {
               child: Container(
                 child: Column(children: [
                   Text("0",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 50,
-                              fontFamily: 'OpenSans',
-                              fontWeight: FontWeight.bold)),
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 50,
+                          fontFamily: 'OpenSans',
+                          fontWeight: FontWeight.bold)),
                   // StreamBuilder<int>(
                   //   stream: manager.eventCount,
                   //   builder: (context, snapshot) {

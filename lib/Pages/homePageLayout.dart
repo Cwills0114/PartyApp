@@ -6,9 +6,9 @@ import 'homePage.dart';
 
 final AssetImage backgroundImage = AssetImage('images/Background.png');
 
-class homePageLayout extends StatefulWidget {
+class HomePageLayout extends StatefulWidget {
   @override
-  _homePageLayoutState createState() => _homePageLayoutState();
+  _HomePageLayoutState createState() => _HomePageLayoutState();
 }
 
 /*TODO - When creating Calls to service
@@ -20,7 +20,7 @@ class homePageLayout extends StatefulWidget {
     // Inherited widgets
 */
 
-class _homePageLayoutState extends State<homePageLayout> {
+class _HomePageLayoutState extends State<HomePageLayout> {
   bool isCollapsed = true;
   double screenWidth, screenHeight;
   final Duration duration = const Duration(milliseconds: 300);
@@ -34,7 +34,7 @@ class _homePageLayoutState extends State<homePageLayout> {
     return Scaffold(
       backgroundColor: Colors.black,
       body: Stack(children: <Widget>[
-        //sideBar(),
+        SideBar(),
         homePage(context),
         displayEvent(context),
         createEventButton(context)

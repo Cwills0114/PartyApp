@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:login/Pages/signupPage.dart';
 import 'package:passwordfield/passwordfield.dart';
 import 'package:login/Pages/homePageLayout.dart';
-import 'package:login/Theme/theme.dart';
 
 class LoginPage extends StatelessWidget {
   final emailController = TextEditingController();
@@ -15,7 +14,7 @@ class LoginPage extends StatelessWidget {
         width: double.infinity,
         decoration: BoxDecoration(color: Colors.white),
         child: SingleChildScrollView(
-                  child: Column(
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               SizedBox(
@@ -45,7 +44,7 @@ class LoginPage extends StatelessWidget {
                         ),
                         Text("Welcome",
                             style: _themeData.textTheme
-                                .headline), //TODO: Change / Does not use theme file
+                                .headline5), //TODO: Change / Does not use theme file
                         SizedBox(height: 20),
                         Container(
                             width: 260,
@@ -83,8 +82,9 @@ class LoginPage extends StatelessWidget {
                                     controller: passwordController,
                                     color: Colors.grey,
                                     hasFloatingPlaceholder: true,
-                                    errorMessage: 'must contain special character either . * @ # \$',
-                                    ),
+                                    errorMessage:
+                                        'must contain special character either . * @ # \$',
+                                  ),
                                 ),
                               ],
                             )),
@@ -118,8 +118,7 @@ class LoginPage extends StatelessWidget {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) =>
-                                            homePageLayout()),
+                                        builder: (context) => HomePageLayout()),
                                   );
                                 },
                               ),
@@ -147,11 +146,9 @@ class LoginPage extends StatelessWidget {
                           onTap: () {
                             print("Register"); // Link to Register page
                             Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          signup()),
-                                );
+                              context,
+                              MaterialPageRoute(builder: (context) => Signup()),
+                            );
                           },
                           child: Text(
                             "Create An Account",
