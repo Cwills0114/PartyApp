@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:login/Events/DisplayEvent/eventManager.dart';
 import 'package:login/Events/eventScrollPhysics.dart';
 import 'package:login/Events/event_model.dart';
+import 'package:login/Pages/userLocation.dart';
 
 /*
   Method: display_Event
@@ -13,81 +14,59 @@ import 'package:login/Events/event_model.dart';
 // https://pub.dev/packages/provider
 
 Widget displayEvent(BuildContext context) {
-  double screenWidth;
-  Size size = MediaQuery.of(context).size;
-  screenWidth = size.width;
   EventManager manager = EventManager();
 
-  List locations = [
-    "Bristol",
-    "London",
-    "Bristol",
-    "London",
-    "Bristol",
-    "London",
-    "Bristol",
-    "London",
-    "Bristol",
-    "London",
-    "Bristol",
-    "London"
-  ];
+  Future<String> _userCity = getUserLocationAddress();
 
   return Padding(
     padding: const EdgeInsets.only(top: 170.0),
     child: SizedBox(
       height: 600,
-      // Nested List View. For Location and Card
-      child: PageView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: locations.length,
-          itemBuilder: (context, index) {
-            return Container(
-                width: screenWidth,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Text(locations[index],
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 35,
-                            fontFamily: 'OpenSans',
-                            fontWeight: FontWeight.w600,
-                            height: 2)),
-                    Expanded(
-                      child:
-                          // Container()
-                          StreamBuilder(
-                        stream: manager.eventListView,
-                        builder: (BuildContext context,
-                            AsyncSnapshot<List<EventModel>> snapshot) {
-                          print(("Error: " +
-                              (snapshot.connectionState).toString()));
-                          switch (snapshot.connectionState) {
-                            case ConnectionState.none:
-                            case ConnectionState.waiting:
-                            case ConnectionState.active:
-                              return Center(child: CircularProgressIndicator());
-                              break;
-                            case ConnectionState.done:
-                              return displayCard(context, index, snapshot);
-                              break;
-                            default:
-                              return (Text("Error" +
-                                  (snapshot.connectionState).toString()));
-                              break;
-                          }
-                        },
-                      ),
-                    ),
-                  ],
-                ));
-          }),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          FutureBuilder<String>(
+              future: _userCity,
+              builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+                print(snapshot.data);
+                children:
+                return Text(snapshot.data,
+                    style: TextStyle(
+                        fontFamily: 'OpenSans',
+                        fontWeight: FontWeight.w600,
+                        fontSize: 25,
+                        height: 2));
+              }),
+          Expanded(
+            child: StreamBuilder(
+              stream: manager.eventListView,
+              builder: (BuildContext context,
+                  AsyncSnapshot<List<EventModel>> snapshot) {
+                print(("Error: " + (snapshot.connectionState).toString()));
+                switch (snapshot.connectionState) {
+                  case ConnectionState.none:
+                  case ConnectionState.waiting:
+                  case ConnectionState.active:
+                    return Center(child: CircularProgressIndicator());
+                    break;
+                  case ConnectionState.done:
+                    return displayCard(context, snapshot);
+                    break;
+                  default:
+                    return (Text(
+                        "Error" + (snapshot.connectionState).toString()));
+                    break;
+                }
+              },
+            ),
+          ),
+        ],
+      ),
     ),
   );
 }
 
-Widget displayCard(BuildContext context, int index, AsyncSnapshot snapshot) {
+Widget displayCard(BuildContext context, AsyncSnapshot snapshot) {
   double screenWidth;
   Size size = MediaQuery.of(context).size;
   screenWidth = size.width;

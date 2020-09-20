@@ -38,16 +38,9 @@ Widget homePage(BuildContext context) {
               left: 100,
               child: Container(
                 child: Column(children: [
-                  // Text("0",
-                  //     style: TextStyle(
-                  //         color: Colors.black,
-                  //         fontSize: 50,
-                  //         fontFamily: 'OpenSans',
-                  //         fontWeight: FontWeight.bold)),
                   StreamBuilder<int>(
                     stream: manager.eventCount,
                     builder: (context, snapshot) {
-                      print("Count " + (snapshot).toString());
                       return Text((snapshot.data ?? 0).toString(),
                           style: TextStyle(
                               color: Colors.black,
