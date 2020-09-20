@@ -12,7 +12,7 @@ class EventManager {
     yield await EventAPI.getEvents();
   }
 
-  eventManager() {
+  EventManager() {
     eventListView.listen((list) => _eventCount.add(list.length));
   }
 }

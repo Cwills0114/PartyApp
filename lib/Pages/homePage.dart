@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-// import 'package:login/Events/DisplayEvent/eventManager.dart';
+import 'package:login/Events/DisplayEvent/eventManager.dart';
 
 final AssetImage backgroundImage = AssetImage('images/Background.png');
 double screenWidth, screenHeight;
@@ -8,7 +8,7 @@ Widget homePage(BuildContext context) {
   Size size = MediaQuery.of(context).size;
   screenHeight = size.height;
   screenWidth = size.width;
-  //final eventManager manager = eventManager();
+  final EventManager manager = EventManager();
 
   return Material(
       elevation: 8,
@@ -38,23 +38,24 @@ Widget homePage(BuildContext context) {
               left: 100,
               child: Container(
                 child: Column(children: [
-                  Text("0",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 50,
-                          fontFamily: 'OpenSans',
-                          fontWeight: FontWeight.bold)),
-                  // StreamBuilder<int>(
-                  //   stream: manager.eventCount,
-                  //   builder: (context, snapshot) {
-                  //     return Text((snapshot.data ?? 0).toString(),
-                  //         style: TextStyle(
-                  //             color: Colors.black,
-                  //             fontSize: 50,
-                  //             fontFamily: 'OpenSans',
-                  //             fontWeight: FontWeight.bold));
-                  //   },
-                  // ),
+                  // Text("0",
+                  //     style: TextStyle(
+                  //         color: Colors.black,
+                  //         fontSize: 50,
+                  //         fontFamily: 'OpenSans',
+                  //         fontWeight: FontWeight.bold)),
+                  StreamBuilder<int>(
+                    stream: manager.eventCount,
+                    builder: (context, snapshot) {
+                      print("Count " + (snapshot).toString());
+                      return Text((snapshot.data ?? 0).toString(),
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 50,
+                              fontFamily: 'OpenSans',
+                              fontWeight: FontWeight.bold));
+                    },
+                  ),
                   Text("Events",
                       style: TextStyle(
                           color: Colors.black,
